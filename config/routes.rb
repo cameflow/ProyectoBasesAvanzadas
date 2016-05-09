@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :subingredients
   resources :dishes
   resources :ingredients
   resources :recipes

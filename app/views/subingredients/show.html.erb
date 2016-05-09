@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @subingredient.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @subingredient.amount %>
+</p>
+
+<p>
+  <strong>Exp date:</strong>
+  <%= @subingredient.exp_date %>
+</p>
+
+<%= link_to 'Edit', edit_subingredient_path(@subingredient) %> |
+<%= link_to 'Back', subingredients_path %>
