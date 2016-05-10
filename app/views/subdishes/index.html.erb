@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Subdishes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Exp date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subdishes.each do |subdish| %>
+      <tr>
+        <td><%= subdish.name %></td>
+        <td><%= subdish.amount %></td>
+        <td><%= subdish.exp_date %></td>
+        <td><%= link_to 'Show', subdish %></td>
+        <td><%= link_to 'Edit', edit_subdish_path(subdish) %></td>
+        <td><%= link_to 'Destroy', subdish, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Subdish', new_subdish_path %>

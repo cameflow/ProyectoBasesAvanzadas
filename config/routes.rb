@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'welcome#home'
+  resources :subdishes
   resources :subingredients
   resources :dishes
   resources :ingredients

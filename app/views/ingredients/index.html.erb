@@ -1,29 +1,65 @@
-<p id="notice"><%= notice %></p>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Almacen Loco</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/recipes">Recetas</a>
+                </li>
+                <li>
+                    <a href="/ingredients">Ingredientes</a>
+                </li>
+                <li>
+                    <a href="/dishes">Platillos</a>
+                </li>
+                <li>
+                    <a href="/subingredients">Almacen</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<div class="index">
+  <p id="notice"><%= notice %></p>
 
-<h1>Listing Ingredients</h1>
+  <h1>Listing Ingredients</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Cost</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @ingredients.each do |ingredient| %>
+  <table  class="table table-striped">
+    <thead>
       <tr>
-        <td><%= ingredient.name %></td>
-        <td><%= ingredient.cost %></td>
-        <td><%= link_to 'Show', ingredient %></td>
-        <td><%= link_to 'Edit', edit_ingredient_path(ingredient) %></td>
-        <td><%= link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Cost</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @ingredients.each do |ingredient| %>
+        <tr>
+          <td><%= ingredient.name %></td>
+          <td><%= ingredient.cost %></td>
+          <td><%= link_to 'Show', ingredient, :class=>'btn-sm btn-success'  %></td>
+          <td><%= link_to 'Edit', edit_ingredient_path(ingredient), :class=>'btn-sm btn-warning'  %></td>
+          <td><%= link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn-sm btn-danger'  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Ingredient', new_ingredient_path %>
+  <br>
+
+  <div class="new-button"><%= link_to 'New Ingredient', new_ingredient_path , :class=>'btn btn-success'%></div>
+</div>

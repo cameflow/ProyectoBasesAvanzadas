@@ -1,0 +1,54 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+  padding-top: 5px !important;
+}
+
+.new-form {
+  text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1%;
+}
+
+.form {
+  background-color: lightgray;
+  border-radius: 10px;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+textarea {
+  height: 300px;
+  width: 500px !important;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.back-button {
+  color: white !important;
+  margin-top: 2%;
+}
+
+.new-button {
+  text-align: center;
+}
+
+.btn-sm {
+  color: white !important;
+}
+
+.btn {
+  color: white !important;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.index {
+  margin-top: 5%;
+}
+
+.index h1 {
+  text-align: center;
+}

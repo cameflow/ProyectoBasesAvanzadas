@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @subdish.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @subdish.amount %>
+</p>
+
+<p>
+  <strong>Exp date:</strong>
+  <%= @subdish.exp_date %>
+</p>
+
+<%= link_to 'Edit', edit_subdish_path(@subdish) %> |
+<%= link_to 'Back', subdishes_path %>
