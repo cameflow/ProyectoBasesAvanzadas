@@ -1,29 +1,32 @@
-<%= form_for(@subingredient) do |f| %>
-  <% if @subingredient.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@subingredient.errors.count, "error") %> prohibited this subingredient from being saved:</h2>
+<div class="form">
+  <%= form_for(@subingredient) do |f| %>
+    <% if @subingredient.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@subingredient.errors.count, "error") %> prohibited this subingredient from being saved:</h2>
 
-      <ul>
-      <% @subingredient.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @subingredient.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :amount %><br>
+      <%= f.text_field :amount %>
+    </div>
+    <div class="field">
+      <%= f.label :exp_date %><br>
+      <%= f.date_select :exp_date %>
+    </div>
+    <div class="actions">
+      <%= f.submit nil,  :class=>'btn btn-success'   %>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :exp_date %><br>
-    <%= f.date_select :exp_date %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
