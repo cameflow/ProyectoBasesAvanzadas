@@ -32,6 +32,7 @@ class RecipesController < ApplicationController
         format.json { render :show, status: :created, location: @recipe }
         dish = Dish.new(name: @recipe.name, cost: params[:cost])
         dish.save
+        @recipe.dish = dish
       else
         format.html { render :new }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }

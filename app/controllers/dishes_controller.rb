@@ -51,6 +51,22 @@ class DishesController < ApplicationController
     end
   end
 
+  def create_sub
+    todaydat = Date.today
+    expdate = (todaydat+2).to_s
+    @sub = Subdish.new(name: params[:nom],exp_date: expdate, amount:1)
+    respond_to do |format|
+      if @sub.save
+        format.html { redirect_to dishes_path, notice: 'Dish was successfully made.' }
+        format.json { render :show, status: :created, location: @sub }
+      else
+        format.html { render :n }
+        format.json { render json: @sub.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   # DELETE /dishes/1
   # DELETE /dishes/1.json
   def destroy
@@ -71,4 +87,5 @@ class DishesController < ApplicationController
     def dish_params
       params.require(:dish).permit(:name, :cost)
     end
+
 end

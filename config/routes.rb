@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root 'welcome#home'
+
+  get 'new_sub', to:'dishes#create_sub'
+
   resources :subdishes
   resources :subingredients
   resources :dishes
