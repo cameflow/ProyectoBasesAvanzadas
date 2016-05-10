@@ -30,6 +30,8 @@ class RecipesController < ApplicationController
       if @recipe.save
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
+        dish = Dish.new(name: @recipe.name, cost: params[:cost])
+        dish.save
       else
         format.html { render :new }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
@@ -71,4 +73,5 @@ class RecipesController < ApplicationController
     def recipe_params
       params.require(:recipe).permit(:name, :description)
     end
+
 end
