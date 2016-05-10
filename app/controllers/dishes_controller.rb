@@ -52,11 +52,13 @@ class DishesController < ApplicationController
   end
 
   def create_sub
+    @dish = Dish.find_by(name: params[:nom])
     todaydat = Date.today
     expdate = (todaydat+2).to_s
     @sub = Subdish.new(name: params[:nom],exp_date: expdate, amount:1)
     respond_to do |format|
       if @sub.save
+        rel = InDishStock.create(from_node: @dish, to_node: @sub, isActive: true)
         format.html { redirect_to dishes_path, notice: 'Dish was successfully made.' }
         format.json { render :show, status: :created, location: @sub }
       else

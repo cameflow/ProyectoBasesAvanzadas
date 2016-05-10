@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'welcome#home'
 
   get 'new_sub', to:'dishes#create_sub'
+  get 'new_sing', to:'ingredients#shop'
 
   resources :subdishes
   resources :subingredients

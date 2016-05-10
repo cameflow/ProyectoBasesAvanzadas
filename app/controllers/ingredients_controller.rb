@@ -51,6 +51,24 @@ class IngredientsController < ApplicationController
     end
   end
 
+  def shop
+    @ingredient = Ingredient.find_by(name: params[:nom])
+    todaydat = Date.today
+    expdate = (todaydat+3).to_s
+    @sing = Subingredient.new(name: params[:nom],exp_date: expdate, amount:1)
+    respond_to do |format|
+      if @sing.save
+        rel = InStock.create(from_node: @ingredient, to_node: @sing, isActive: true)
+        format.html { redirect_to ingredients_path, notice: 'Ingredient was shopped.' }
+        format.json { render :show, status: :created, location: @sing }
+      else
+        format.html { render :n }
+        format.json { render json: @sing.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   # DELETE /ingredients/1
   # DELETE /ingredients/1.json
   def destroy
