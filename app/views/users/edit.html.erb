@@ -1,6 +1,8 @@
-<h1>Editing User</h1>
+<div class="new-form">
+  <h1>Editing User</h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+  <%= link_to 'Show', @user, :class=>'btn btn-success back-button'  %> 
+  <%= link_to 'Back', users_path, :class=>'btn btn-danger back-button'  %>
+</div>

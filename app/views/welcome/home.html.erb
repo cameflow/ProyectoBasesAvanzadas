@@ -55,8 +55,13 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                   <% if logged_in? %>
-                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/">|<%= current_user.name %>|</a></li>
+                    <% if current_user.role ==1 %>
+                      <li><a href="/register">|Contrata|</a></li>
+                    <% end %>
+                    <li><a href="/logout">|Logout|</a></li>
                   <% else %>
+                    <li><a href="/register">Registrate</a></li>
                     <li><a href="/login">Login</a></li>
                   <% end %>
                 </ul>

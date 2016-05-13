@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, except: [:new, :create, :edit,:update]
+  before_action :require_chef, except: [:orders,:delivers,:registerc,:new, :create,:edit,:update]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
   end
+
 
   def orders
     @orders = current_user.orders
@@ -86,4 +89,17 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :role ,:password)
     end
+
+    def require_login
+      if !logged_in?
+        redirect_to root_path
+      end
+    end
+
+    def require_chef
+      if current_user.role != 1
+        redirect_to root_path
+      end
+    end
+
 end

@@ -9,7 +9,7 @@ class User
   property :name, type: String
   property :email, type: String
   property :password_digest, type: String
-  property :role, type: Integer
+  property :role, type: Integer, default: 3
   validates :email, presence: true, :uniqueness => true
 
 
