@@ -2,7 +2,10 @@ class User
   include ActiveModel::SecurePassword
   has_secure_password
 
+
+
   include Neo4j::ActiveNode
+  has_many :out, :orders, type: :MADE_ORDER
   property :name, type: String
   property :email, type: String
   property :password_digest, type: String

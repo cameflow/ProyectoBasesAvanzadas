@@ -26,14 +26,6 @@
               <li>
                   <a href="/subingredients">Almacen</a>
               </li>
-              <% if logged_in? %>
-                <% if current_user.role ==1 || current_user.role == 2 %>
-                  <li><a href="/orders">Ordenes</a></li>
-                <% else %>
-                  <li><%= link_to 'Mis Pedidos', myorders_path %></li>
-                  <li><%= link_to 'Mis Entregas', mydelivers_path %></li>
-                <% end %>
-              <% end %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <% if logged_in? %>
@@ -50,38 +42,33 @@
 <div class="index">
   <p id="notice"><%= notice %></p>
 
-  <h1>Listing Dishes</h1>
+  <h1>Listing Orders</h1>
   <hr>
-  <table  class="table table-striped">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Name</th>
-        <th>Cost</th>
+        <th>Created</th>
       </tr>
     </thead>
-
     <tbody>
-      <% @dishes.each do |dish| %>
+    <% if @orders %>
+      <% @orders.each do |order| %>
         <tr>
-          <td><%= dish.name %></td>
-          <td><%= dish.cost %></td>
-          <% if logged_in? && current_user.role == 1%>
-            <td><%= link_to 'Edit', edit_dish_path(dish) , :class=>'btn-sm btn-warning' %></td>
-          <% end %>
-          <% if logged_in? && (current_user.role == 1 || current_user.role ==2) %>
-            <td><%= link_to 'Preparar', new_sub_path(:nom => dish.name) , :class=>'btn-sm btn-primary' %></td>
-          <% end %>
-          <% if logged_in? && current_user.role == 3 %>
-            <td><%= link_to 'Ordenar', make_order_path(:nom => dish.name) , :class=>'btn-sm btn-primary' %></td>
-          <% end %>
-          <% if logged_in? && current_user.role == 1%>
-            <td><%= link_to 'Destroy', dish, method: :delete, data: { confirm: 'Are you sure?' } , :class=>'btn-sm btn-danger' %></td>
-          <% end %>
+          <td><%= order.name %></td>
+          <td><%= order.created %></td>
+          <td><%= link_to 'Entregar', deliver_path(:nom => order.name) , :class=>'btn-sm btn-primary' %></td>
         </tr>
       <% end %>
+    <% else %>
+    <tr>
+
+        <h1>NO HAY NINGUNA ORDEN</h1>
+
+    </tr>
+    <% end %>
     </tbody>
   </table>
 
   <br>
-
 </div>

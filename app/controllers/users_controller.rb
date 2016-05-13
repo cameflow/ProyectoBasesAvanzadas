@@ -7,6 +7,21 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def orders
+    @orders = current_user.orders
+    @dishes = Dish.all
+    total = 0.0
+    for order in @orders
+      total = total + @dishes.find_by(name: order.name).cost
+    end
+    @dinero = total
+  end
+
+  def delivers
+    @orders = current_user.orders.where(delivered:true)
+    @dishes = Dish.all
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show

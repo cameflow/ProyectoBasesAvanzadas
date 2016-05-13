@@ -26,6 +26,15 @@
               <li>
                   <a href="/subingredients">Almacen</a>
               </li>
+              <% if logged_in? %>
+              <li>
+                <% if current_user.role ==1 || current_user.role == 2 %>
+                  <a href="/orders">Ordenes</a>
+                <% else %>
+                  <%= link_to 'Mis Pedidos', myorders_path %>
+                <% end %>
+              </li>
+              <% end %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <% if logged_in? %>
