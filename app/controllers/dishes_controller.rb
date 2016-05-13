@@ -1,5 +1,8 @@
 class DishesController < ApplicationController
-  before_action :set_dish, only: [:show, :edit, :update, :destroy]
+    before_action :set_dish, only: [:show, :edit, :update, :destroy]
+    before_action :require_login, except: [:index, :show]
+    before_action :require_chef, only: [:new, :create,:edit ,:update, :destroy]
+    before_action :require_chef_cook, only: [:create_sub]
 
   # GET /dishes
   # GET /dishes.json
@@ -59,6 +62,24 @@ class DishesController < ApplicationController
     respond_to do |format|
       if @sub.save
         rel = InDishStock.create(from_node: @dish, to_node: @sub, isActive: true)
+        format.html { redirect_to dishes_path, notice: 'Dish was successfully ordered.' }
+        format.json { render :show, status: :created, location: @sub }
+      else
+        format.html { render :n }
+        format.json { render json: @sub.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+  def order
+    @dish = Dish.find_by(name: params[:nom])
+    todaydat = Date.today
+    @order = Order.new(name: params[:nom], created: todaydat)
+    respond_to do |format|
+      if @order.save
+        @dish.orders << @order
+        current_user.orders << @order
         format.html { redirect_to dishes_path, notice: 'Dish was successfully made.' }
         format.json { render :show, status: :created, location: @sub }
       else
@@ -67,7 +88,9 @@ class DishesController < ApplicationController
       end
     end
 
+
   end
+
 
   # DELETE /dishes/1
   # DELETE /dishes/1.json
@@ -89,5 +112,24 @@ class DishesController < ApplicationController
     def dish_params
       params.require(:dish).permit(:name, :cost)
     end
+
+    def require_login
+      if !logged_in?
+        redirect_to root_path
+      end
+    end
+
+    def require_chef
+      if current_user.role != 1
+        redirect_to root_path
+      end
+    end
+
+    def require_chef_cook
+      if current_user.role != 1 && current_user.role !=2
+        redirect_to root_path
+      end
+    end
+
 
 end

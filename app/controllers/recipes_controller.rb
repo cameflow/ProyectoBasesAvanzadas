@@ -1,5 +1,7 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, except: [:index, :show]
+  before_action :require_chef, only: [:new, :create,:edit ,:update, :destroy]
 
   # GET /recipes
   # GET /recipes.json
@@ -28,7 +30,7 @@ class RecipesController < ApplicationController
 
     respond_to do |format|
       if @recipe.save
-        format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
+        format.html { redirect_to add_ing_path(@recipe), notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
         dish = Dish.new(name: @recipe.name, cost: params[:cost])
         dish.save
@@ -61,6 +63,10 @@ class RecipesController < ApplicationController
     end
   end
 
+  def addingredient
+    
+  end
+
   # DELETE /recipes/1
   # DELETE /recipes/1.json
   def destroy
@@ -79,7 +85,19 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :description)
+      params.require(:recipe).permit(:name, :description, :ingredient_ids => [])
+    end
+
+    def require_login
+      if !logged_in?
+        redirect_to root_path
+      end
+    end
+
+    def require_chef
+      if current_user.role != 1
+        redirect_to root_path
+      end
     end
 
     def permit_ingredients

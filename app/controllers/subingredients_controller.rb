@@ -1,10 +1,17 @@
 class SubingredientsController < ApplicationController
   before_action :set_subingredient, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, except: [:index, :show]
+  before_action :require_chef, only: [:edit ,:update, :destroy]
+  before_action :require_chef_cook, only: [:new, :create]
 
   # GET /subingredients
   # GET /subingredients.json
   def index
-    @subingredients = Subingredient.all
+    @subingredients = Neo4j::Session.current.query("MATCH (n:`Ingredient`) MATCH n-[rel1:`IN_STOCK`]->(result_subingredients:`Subingredient`) where rel1.isActive  RETURN result_subingredients")
+  end
+
+  def podridos
+    @subingredients = Neo4j::Session.current.query("MATCH (n:`Ingredient`) MATCH n-[rel1:`IN_STOCK`]->(result_subingredients:`Subingredient`) where rel1.isActive = false RETURN result_subingredients")
   end
 
   # GET /subingredients/1
@@ -71,4 +78,23 @@ class SubingredientsController < ApplicationController
     def subingredient_params
       params.require(:subingredient).permit(:name, :amount, :exp_date)
     end
+
+    def require_login
+      if !logged_in?
+        redirect_to root_path
+      end
+    end
+
+    def require_chef
+      if current_user.role != 1
+        redirect_to root_path
+      end
+    end
+
+    def require_chef_cook
+      if current_user.role != 1 && current_user.role !=2
+        redirect_to root_path
+      end
+    end
+
 end
