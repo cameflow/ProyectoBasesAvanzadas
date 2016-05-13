@@ -33,6 +33,13 @@ class RecipesController < ApplicationController
         dish = Dish.new(name: @recipe.name, cost: params[:cost])
         dish.save
         @recipe.dish = dish
+        ids = params["recipe"]["ingredient_ids"]
+        for ingredient in ids
+          ing = Ingredient.find_by(uuid: ingredient)
+          if ing
+            rel = HasIngredient.create(from_node: @recipe, to_node: ing, amount: Random.rand(10) + 1)
+          end
+        end
       else
         format.html { render :new }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
@@ -72,7 +79,11 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :description, :ingredient_ids => [])
+      params.require(:recipe).permit(:name, :description)
+    end
+
+    def permit_ingredients
+      params.require(:recipe).permit(:ingredient_ids => [])
     end
 
 end

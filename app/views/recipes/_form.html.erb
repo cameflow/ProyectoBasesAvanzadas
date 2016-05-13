@@ -27,9 +27,9 @@
     <strong>Ingredients: </strong>
     <br>
     <br>
-        <%= f.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name do |cbi| %>
-        <% cbi.label(class: "checkbox-inline input_checkbox") {cbi.check_box(class: "checkbox") + cbi.text} %>
-        <%end%>
+      <%= f.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name do |cbi| %>
+      <% cbi.label(class: "checkbox-inline input_checkbox") {cbi.check_box(class: "checkbox") + cbi.text} %>
+      <%end%>
       <br><br>
     <div class="actions">
       <%= f.submit nil, :class=>'btn btn-success' %>
