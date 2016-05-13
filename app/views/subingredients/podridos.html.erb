@@ -15,12 +15,12 @@
     <tbody>
       <% @subingredients.each do |subingredient| %>
         <tr>
-          <td><%= subingredient.name %></td>
-          <td><%= subingredient.amount %></td>
-          <td><%= subingredient.exp_date %></td>
+          <td><%= subingredient[:result_subingredients].name %></td>
+          <td><%= subingredient[:result_subingredients].amount %></td>
+          <td><%= subingredient[:result_subingredients].exp_date %></td>
           <% if logged_in? && current_user.role == 1%>
-            <td><%= link_to 'Edit', edit_subingredient_path(subingredient) , :class=>'btn-sm btn-warning' %></td>
-            <td><%= link_to 'Destroy', subingredient, method: :delete, data: { confirm: 'Are you sure?' } , :class=>'btn-sm btn-danger' %></td>
+            <td><%= link_to 'Edit', edit_subingredient_path(subingredient[:result_subingredients]) , :class=>'btn-sm btn-warning' %></td>
+            <td><%= link_to 'Destroy', subingredient[:result_subingredients], method: :delete, data: { confirm: 'Are you sure?' } , :class=>'btn-sm btn-danger' %></td>
           <% end %>
         </tr>
       <% end %>

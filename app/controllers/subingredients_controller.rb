@@ -7,11 +7,11 @@ class SubingredientsController < ApplicationController
   # GET /subingredients
   # GET /subingredients.json
   def index
-    @subingredients = Subingredient.where(valido: true)
+    @subingredients = Neo4j::Session.current.query("MATCH (n:`Ingredient`) MATCH n-[rel1:`IN_STOCK`]->(result_subingredients:`Subingredient`) where rel1.isActive  RETURN result_subingredients")
   end
 
   def podridos
-    @subingredients = Subingredient.where(valido: false)
+    @subingredients = Neo4j::Session.current.query("MATCH (n:`Ingredient`) MATCH n-[rel1:`IN_STOCK`]->(result_subingredients:`Subingredient`) where rel1.isActive = false RETURN result_subingredients")
   end
 
   # GET /subingredients/1

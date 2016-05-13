@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'myorders', to:'users#orders'
   get 'mydelivers', to:'users#delivers'
   get 'podridos', to:'subingredients#podridos'
+  get 'add_ing', to:'recipes#addingredient'
 
   resources :subdishes
   resources :subingredients

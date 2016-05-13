@@ -49,3 +49,4 @@ end
 
 
 gem 'neo4j', '~> 6.1.0'
+gem 'neo4j-cypher'

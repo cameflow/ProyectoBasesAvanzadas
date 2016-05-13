@@ -30,7 +30,7 @@ class RecipesController < ApplicationController
 
     respond_to do |format|
       if @recipe.save
-        format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
+        format.html { redirect_to add_ing_path(@recipe), notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
         dish = Dish.new(name: @recipe.name, cost: params[:cost])
         dish.save
@@ -54,6 +54,10 @@ class RecipesController < ApplicationController
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def addingredient
+    
   end
 
   # DELETE /recipes/1

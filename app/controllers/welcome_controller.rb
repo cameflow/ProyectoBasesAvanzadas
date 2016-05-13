@@ -14,17 +14,17 @@ class WelcomeController < ApplicationController
     expdate = (todaydat+4).to_s
     for sub in @subingredients
       if sub.exp_date == checkdat
-        Subingredient.create(name: sub.name, exp_date: expdate, amount:1)
+        @ingredient = Ingredient.find_by(name: sub.name)
+        subi = Subingredient.create(name: sub.name, exp_date: expdate, amount:10)
+        rel = InStock.create(from_node: @ingredient, to_node: subi, isActive: true)
       else
         if sub.exp_date == todaydat || sub.exp_date < todaydat
-          sub.valido = false
-          sub.save
+          Neo4j::Session.current.query('MATCH (n:Ingredient) MATCH n-[rel1:IN_STOCK]->(result_subingredients:Subingredient) where n.name ='+"'" + sub.name + "'"+' set rel1.isActive = false')
         end
       end
     end
 
   end
-
 
 
 end

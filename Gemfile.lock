@@ -115,6 +115,7 @@ GEM
       multi_json
       neo4j-rake_tasks (>= 0.3.0)
       net-http-persistent
+    neo4j-cypher (1.0.4)
     neo4j-rake_tasks (0.4.4)
       colored
       httparty
@@ -207,6 +208,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   neo4j (~> 6.1.0)
+  neo4j-cypher
   pry
   rails (= 4.2.4)
   sass-rails (~> 5.0)
