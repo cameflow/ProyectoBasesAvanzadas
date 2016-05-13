@@ -1,5 +1,8 @@
 class DishesController < ApplicationController
-  before_action :set_dish, only: [:show, :edit, :update, :destroy]
+    before_action :set_dish, only: [:show, :edit, :update, :destroy]
+    before_action :require_login, except: [:index, :show]
+    before_action :require_chef, only: [:new, :create,:edit ,:update, :destroy]
+    before_action :require_chef_cook, only: [:create_sub]
 
   # GET /dishes
   # GET /dishes.json
@@ -88,6 +91,24 @@ class DishesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def dish_params
       params.require(:dish).permit(:name, :cost)
+    end
+
+    def require_login
+      if !logged_in?
+        redirect_to root_path
+      end
+    end
+
+    def require_chef
+      if current_user.role != 1
+        redirect_to root_path
+      end
+    end
+
+    def require_chef_cook
+      if current_user.role != 1 && current_user.role !=2
+        redirect_to root_path
+      end
     end
 
 end

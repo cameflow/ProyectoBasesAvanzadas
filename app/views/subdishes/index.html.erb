@@ -27,6 +27,13 @@
                   <a href="/subingredients">Almacen</a>
               </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <% if logged_in? %>
+                <li><a href="/logout">Logout</a></li>
+              <% else %>
+                <li><a href="/login">Login</a></li>
+              <% end %>
+            </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>

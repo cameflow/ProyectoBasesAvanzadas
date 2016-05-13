@@ -27,6 +27,13 @@
                   <a href="/subingredients">Almacen</a>
               </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <% if logged_in? %>
+                <li><a href="/logout">Logout</a></li>
+              <% else %>
+                <li><a href="/login">Login</a></li>
+              <% end %>
+            </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -36,14 +43,13 @@
   <p id="notice"><%= notice %></p>
 
   <h1>Listing Subingredients</h1>
-
+  <hr>
   <table  class="table table-striped">
     <thead>
       <tr>
         <th>Name</th>
         <th>Amount</th>
         <th>Exp date</th>
-        <th colspan="3"></th>
       </tr>
     </thead>
 
@@ -53,9 +59,10 @@
           <td><%= subingredient.name %></td>
           <td><%= subingredient.amount %></td>
           <td><%= subingredient.exp_date %></td>
-          <td><%= link_to 'Show', subingredient , :class=>'btn-sm btn-success' %></td>
-          <td><%= link_to 'Edit', edit_subingredient_path(subingredient) , :class=>'btn-sm btn-warning' %></td>
-          <td><%= link_to 'Destroy', subingredient, method: :delete, data: { confirm: 'Are you sure?' } , :class=>'btn-sm btn-danger' %></td>
+          <% if logged_in? && current_user.role == 1%>
+            <td><%= link_to 'Edit', edit_subingredient_path(subingredient) , :class=>'btn-sm btn-warning' %></td>
+            <td><%= link_to 'Destroy', subingredient, method: :delete, data: { confirm: 'Are you sure?' } , :class=>'btn-sm btn-danger' %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -63,5 +70,4 @@
 
   <br>
 
-  <div class="new-button"><%= link_to 'New Subingredient', new_subingredient_path, :class=>'btn btn-success' %></div>
 </div>
