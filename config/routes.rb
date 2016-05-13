@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
+
   root 'welcome#home'
 
   get 'new_sub', to:'dishes#create_sub'
   get 'new_sing', to:'ingredients#shop'
+  get 'login', to:'logins#new'
+  post 'login', to:'logins#create'
+  get 'logout', to:'logins#destroy'
 
   resources :subdishes
   resources :subingredients
   resources :dishes
   resources :ingredients
   resources :recipes
+  resources :users, except: [:new]
+  get '/register', to:'users#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
