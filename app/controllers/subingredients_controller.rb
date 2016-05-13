@@ -7,7 +7,11 @@ class SubingredientsController < ApplicationController
   # GET /subingredients
   # GET /subingredients.json
   def index
-    @subingredients = Subingredient.all
+    @subingredients = Subingredient.where(valido: true)
+  end
+
+  def podridos
+    @subingredients = Subingredient.where(valido: false)
   end
 
   # GET /subingredients/1
